@@ -1,0 +1,62 @@
+// App.js
+import React, { useState, useCallback } from 'react';
+import HTMLtoJSX from 'html-to-jsx';
+
+const htmljsx = () => {
+  const [htmlInput, setHtmlInput] = useState('');
+  const [jsxOutput, setJsxOutput] = useState('');
+
+  const convertToJsx = useCallback(() => {
+    try {
+      const jsxResult = HTMLtoJSX(htmlInput);
+      setJsxOutput(jsxResult);
+    } catch (error) {
+      console.error('Conversion error:', error.message);
+      setJsxOutput('Error in conversion. Check console for details.');
+    }
+  }, [htmlInput]);
+
+  const handleHtmlInputChange = (e) => {
+    const inputValue = e.target.value;
+    setHtmlInput(inputValue);
+  };
+
+  // Debounce the conversion function to avoid excessive calls while typing
+  const debounceConvertToJsx = useCallback(
+    debounce(convertToJsx, 300),
+    [convertToJsx]
+  );
+
+  function debounce(func, delay) {
+    let timeoutId;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
+
+  return (
+    <div>
+      <h1>HTML to JSX Converter</h1>
+      <div>
+        <label htmlFor="htmlInput">Enter HTML Code:</label>
+        <textarea
+          id="htmlInput"
+          rows="8"
+          cols="50"
+          value={htmlInput}
+          onChange={(e) => {
+            handleHtmlInputChange(e);
+            debounceConvertToJsx();
+          }}
+        />
+      </div>
+      <div>
+        <h2>JSX Output:</h2>
+        <pre>{jsxOutput}</pre>
+      </div>
+    </div>
+  );
+};
+
+export default htmljsx;

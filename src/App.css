@@ -1,0 +1,21 @@
+:root{
+    /* --color:#8b5cf6; */
+    --color:#ffffff;
+    --whiteColor:#ffffff;
+}
+
+.image-row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px;
+}
+.image-preview{
+    cursor: pointer;
+}
+.image-preview:hover{
+    transform: scale(1.1);
+    transition: 0.2s;
+}

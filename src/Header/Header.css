@@ -1,0 +1,14 @@
+.form-search{
+    background-color: transparent;
+    color: #fff;
+    font-size: 12px;
+}
+.form-search:focus {
+    background: transparent;
+    color:var(--whiteColor);
+    box-shadow: 2px 0px 16px 0px var(--whiteColor);
+    border-color:var(--whiteColor);
+}
+.form-search::placeholder{
+    color: var(--whiteColor);
+}
